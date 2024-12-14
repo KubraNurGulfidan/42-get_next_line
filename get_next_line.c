@@ -95,16 +95,16 @@ char	*get_next_line(int fd)
 // 	while (i < 9)
 // 	{
 // 		str = get_next_line(fd);
-// 		// printf("%s",str);
+// 		printf("%s",str);
 // 		i++;
 // 	}
 // }
 
-int	main(void)
-{
-	int fd = open("kubra.txt", O_CREAT | O_RDWR, 777);
-	int fd1 = open("gulfidan.txt", O_CREAT | O_RDWR, 777);
+// int	main(void)
+// {
+// 	int fd = open("kubra.txt", O_CREAT | O_RDWR, 777);
+// 	int fd1 = open("gulfidan.txt", O_CREAT | O_RDWR, 777);
 
-	printf("%s", get_next_line(fd));
-	printf("%s", get_next_line(fd1));
-}
+// 	printf("%s", get_next_line(fd));
+// 	printf("%s", get_next_line(fd1));
+// }
