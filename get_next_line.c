@@ -6,13 +6,11 @@
 /*   By: kgulfida <kgulfida@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 17:49:43 by kgulfida          #+#    #+#             */
-/*   Updated: 2024/02/06 18:53:17 by kgulfida         ###   ########.fr       */
+/*   Updated: 2024/02/08 18:26:15 by kgulfida         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include <fcntl.h>
-#include <stdio.h>
 
 char	*read_line(int fd, char *buffer, char *stack)
 {
@@ -42,24 +40,24 @@ char	*read_line(int fd, char *buffer, char *stack)
 char	*clean_stack(char *line)
 {
 	int		i;
-	char	*dest;
+	char	*str;
 
 	i = 0;
 	while (line[i] && line[i] != '\n')
 		i++;
 	if (line[i] == '\0')
 		return (NULL);
-	dest = ft_substr(line, i + 1, ft_strlen(line) - i);
-	if (dest == NULL)
+	str = ft_substr(line, i + 1, ft_strlen(line) - i);
+	if (str == NULL)
 		return (NULL);
-	if (dest[0] == '\0')
+	if (str[0] == '\0')
 	{
-		free(dest);
-		dest = NULL;
+		free(str);
+		str = NULL;
 		return (NULL);
 	}
 	line[i + 1] = '\0';
-	return (dest);
+	return (str);
 }
 
 char	*get_next_line(int fd)
@@ -75,7 +73,6 @@ char	*get_next_line(int fd)
 		return (NULL);
 	line = read_line(fd, buffer, stack);
 	free(buffer);
-	buffer = NULL;
 	if (line == NULL)
 	{
 		free(stack);
@@ -85,26 +82,3 @@ char	*get_next_line(int fd)
 	stack = clean_stack(line);
 	return (line);
 }
-
-// int	main(void)
-// {
-// 	int fd = open("kubra.txt", O_RDWR, 0777);
-// 	char *str;
-// 	int i = 0;
-
-// 	while (i < 9)
-// 	{
-// 		str = get_next_line(fd);
-// 		printf("%s",str);
-// 		i++;
-// 	}
-// }
-
-// int	main(void)
-// {
-// 	int fd = open("kubra.txt", O_CREAT | O_RDWR, 777);
-// 	int fd1 = open("gulfidan.txt", O_CREAT | O_RDWR, 777);
-
-// 	printf("%s", get_next_line(fd));
-// 	printf("%s", get_next_line(fd1));
-// }

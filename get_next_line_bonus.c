@@ -6,13 +6,11 @@
 /*   By: kgulfida <kgulfida@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 18:07:00 by kgulfida          #+#    #+#             */
-/*   Updated: 2024/02/06 18:48:48 by kgulfida         ###   ########.fr       */
+/*   Updated: 2024/02/08 18:24:36 by kgulfida         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line_bonus.h"
-#include <fcntl.h>
-#include <stdio.h>
 
 char	*read_line(int fd, char *buffer, char *stack)
 {
@@ -68,14 +66,13 @@ char	*get_next_line(int fd)
 	char		*line;
 	char		*buffer;
 
-	if (fd < 0 && BUFFER_SIZE <= 0)
+	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	buffer = malloc(sizeof(char) * BUFFER_SIZE + 1);
 	if (!buffer)
 		return (NULL);
 	line = read_line(fd, buffer, stack[fd]);
 	free(buffer);
-	buffer = NULL;
 	if (line == NULL)
 	{
 		free(stack[fd]);
@@ -84,13 +81,4 @@ char	*get_next_line(int fd)
 	}
 	stack[fd] = clean_stack(line);
 	return (line);
-}
-
-int	main(void)
-{
-	int fd = open("kubra.txt", O_CREAT | O_RDWR, 777);
-	int fd1 = open("gulfidan.txt", O_CREAT | O_RDWR, 777);
-
-	printf("%s", get_next_line(fd));
-	printf("%s", get_next_line(fd1));
 }

@@ -6,7 +6,7 @@
 /*   By: kgulfida <kgulfida@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 18:07:18 by kgulfida          #+#    #+#             */
-/*   Updated: 2024/02/06 18:49:25 by kgulfida         ###   ########.fr       */
+/*   Updated: 2024/02/07 14:19:06 by kgulfida         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 #  define BUFFER_SIZE 42
 # endif
 
-# include <unistd.h>
 # include <stdlib.h>
+# include <unistd.h>
 
 char	*get_next_line(int fd);
 char	*read_line(int fd, char *buffer, char *stack);
