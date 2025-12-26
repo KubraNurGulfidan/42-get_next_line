@@ -24,19 +24,33 @@ The aim of this project is to write a function that returns a line read from a f
 
 ## Kullanım / Usage
 
-Derleme sırasında BUFFER_SIZE belirleyebilirsiniz (You can define BUFFER_SIZE during compilation):
+- Bir main.c dosyası oluşturup derleme sırasında BUFFER_SIZE belirleyebilirsiniz (You can define BUFFER_SIZE during compilation):
+  ```bash
+  cc -Wall -Wextra -Werror -D BUFFER_SIZE=34 main.c get_next_line.c get_next_line_utils.c
 
-```bash
-cc -Wall -Wextra -Werror -D BUFFER_SIZE=42 get_next_line.c get_next_line_utils.c
+- Aşağıda örnek bir main.c dosyası içeriği verilmiştir. (Below is an example of the contents of a main.c file.)
+  ```c
+  #include "get_next_line.h"
+  #include <fcntl.h>
+  #include <stdio.h>
 
-```c
-#include "get_next_line.h"
+  int main(void)
+  {
+      int     fd;
+      char    *line;
 
-int fd = open("file.txt", O_RDONLY);
-char *line;
+      // Dosyayı salt okunur modda açın
+      fd = open("test.txt", O_RDONLY);
+      if (fd < 0)
+          return (1);
 
-while ((line = get_next_line(fd)))
-{
-    printf("%s", line);
-    free(line);
-}
+      // Satır satır okuma döngüsü
+      while ((line = get_next_line(fd)) != NULL)
+      {
+          printf("%s", line); // Satırı ekrana yazdır
+          free(line);         // Bellek sızıntısını önlemek için serbest bırak!
+      }
+
+      close(fd);
+      return (0);
+  }
